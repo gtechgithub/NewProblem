@@ -35,7 +35,7 @@
 		<proxy>
 			<active>true</active>
 			<protocol>http</protocol>
-			<host>10.5.127.23</host>
+			<host>10.10.10.10</host>
 			<port>8080</port>
 			<!--<username>congthanhlai</username>-->
 			<username>userid</username>
