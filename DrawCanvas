@@ -1,0 +1,74 @@
+package com.example.myproject.canvas.impl;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class DrawCanvas {
+
+
+	private int width;
+	private int height;
+	private String [][] convasValues;
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public String[][] getConvasValues() {
+		return convasValues;
+	}
+
+	public void setConvasValues(String[][] convasValues) {
+		this.convasValues = convasValues;
+	}
+
+	public void drawShape(int widthVal, int heightVal) {
+
+		//intialize
+		height = heightVal;
+		width = widthVal;
+		
+		int heightBoundary = height + 2;
+		int widthBoundary =  width + 2;
+		
+		convasValues = new String[heightBoundary] [widthBoundary];
+		
+		for(int j=0; j < widthBoundary; j++ ) {
+			convasValues[0][j] = "-";
+			convasValues[height+1][j] = "-";
+		}
+	
+		for(int j=1; j < heightBoundary; j++ ) {
+			convasValues[j][0] = "|";
+			convasValues[j][width+1] = "|";
+			
+		}
+	}
+
+
+	public void printValues() {
+		
+		for(int i=0; i < height+2; i++ ) {
+
+			System.out.println();
+			for (int j=0 ; j < width+2 ; j++) {
+				
+				System.out.print(null != convasValues[i][j] && !convasValues[i][j].isEmpty()?convasValues[i][j]:" ");
+			}
+		}
+	}
+
+	
+}
