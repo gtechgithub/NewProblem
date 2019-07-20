@@ -2,12 +2,16 @@ package com.example.myproject.canvas.impl;
 
 import org.springframework.stereotype.Component;
 
+import com.example.myproject.canvas.exception.CanvasException;
+
 @Component
 public class DrawCanvas {
 
 
-	private int width;
-	private int height;
+	private int width; // eg of width 20
+	private int height; // eg of height 4
+	
+	//convasValues will like eg: [4] [20]
 	private String [][] convasValues;
 	
 	public int getWidth() {
@@ -34,23 +38,54 @@ public class DrawCanvas {
 		this.convasValues = convasValues;
 	}
 
-	public void drawShape(int widthVal, int heightVal) {
+	//drawConvas.drawShape(, );
+
+
+	public boolean isNumeric(final String str) {
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+        return str.chars().allMatch(Character::isDigit);
+    }
+	
+	private void drawShapeValidateArguments( final String [] cmd ) {
+		
+		//expect 2 arguments to be passed 
+		if (null == cmd || cmd.length < 3) {
+			throw new CanvasException("invalid arguments need width and heigth!!");
+		}
+		
+		if ( (!isNumeric(cmd[1])) || (!isNumeric(cmd[2]))  )  {
+			throw new CanvasException("invalid numeric argument to build canvas!!!");
+		}
 
 		//intialize
-		height = heightVal;
-		width = widthVal;
+		height = Integer.parseInt(cmd[2]);
+		width = Integer.parseInt(cmd[1]);
+
+	}
+	
+	public void drawShape( final String [] cmd ) {
+
+		drawShapeValidateArguments(cmd);
 		
-		int heightBoundary = height + 2;
+		int heightBoundary = height+ 2;
 		int widthBoundary =  width + 2;
 		
+		//convasValues will like eg: [4] [20]
 		convasValues = new String[heightBoundary] [widthBoundary];
-		
+
+		if (height < 1 || width < 1 || null == convasValues || convasValues.length < 3 ) {
+			throw new CanvasException("invalid boundaries width:" + width + " height:" + height);
+		}
+
 		for(int j=0; j < widthBoundary; j++ ) {
 			convasValues[0][j] = "-";
-			convasValues[height+1][j] = "-";
+			convasValues[height + 1][j] = "-";
 		}
 	
-		for(int j=1; j < heightBoundary; j++ ) {
+		for(int j=1; j < heightBoundary-1; j++ ) {
 			convasValues[j][0] = "|";
 			convasValues[j][width+1] = "|";
 			
