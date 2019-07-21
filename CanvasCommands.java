@@ -15,7 +15,10 @@ public abstract class CanvasCommands {
 	public abstract void draw (final String [] cmd);
 
 	public abstract void fill (final String[] cmd);
-	
+
+	public void setCanvasDec(final DrawCanvas canvas) {
+		canvasDecorator  = canvas;
+	}
 
 	public boolean checkEndpointsLessThanBoundary(int p1, int p2) {
 
